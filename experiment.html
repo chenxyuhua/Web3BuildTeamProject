@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+</head>
+<body>
+
+</body>
+    <script>
+        var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        console.log(web3)
+
+        // get chain ID
+        web3.eth.getChainId()
+            .then(console.log);
+
+        // access account balance
+        web3.eth.getBalance("0x9339B044cd39B48B723d5A73AbDF6C7c23A38A0A")
+            // unit conversion to better present to the user
+            .then(ret=>{console.log(web3.utils.fromWei(ret, "ether"))});
+
+        // sent transactions
+        web3.eth.sendTransaction({
+            from: '0x9339B044cd39B48B723d5A73AbDF6C7c23A38A0A',
+            to: '0xd0f449A70e50CC7cd6a40a9D477Be42184FB1E56',
+            value: web3.utils.toWei("1", "ether")
+        })
+            .then(function(receipt){
+                console.log("Transaction completed.")
+            });
+    </script>
+</html>
